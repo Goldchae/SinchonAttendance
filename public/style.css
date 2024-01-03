@@ -1,0 +1,103 @@
+.outer {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("./image/backGround2.png");
+  background-position: center center;
+  background-size: cover;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  positon: relative;
+  z-index: 0;
+}
+
+#form {
+  height: 11vh;
+}
+
+#msg {
+  margin: 10px 10px 10px 10px;
+  width: 40vh;
+  height: 100%;
+  background-color: rgb(255, 255, 255, 0);
+  border: 5px solid #6cffc8;
+  border-radius: 10px;
+  font-size: 4vh;
+  color: white;
+  text-align: center;
+}
+
+#btn {
+  width: 10vh;
+  background-image: url("./image/check.png");
+  background-size: cover;
+  height: 100%;
+  border-radius: 10px;
+  color: black;
+  font-size: 4vh;
+}
+
+body {
+  //touch-action: none;
+  overflow: hidden;
+}
+
+//
+.happy {
+}
+
+.textIn {
+  height: 20%;
+  width: 65%;
+  margin: 0 auto;
+
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: relative;
+}
+
+.inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+}
+
+.talking {
+  color: white;
+  font-size: 4vh;
+}
+
+@media screen and (max-width: 670px) {
+  .textIn {
+    height: 20%;
+    width: 90%;
+    margin: 0 auto;
+
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    position: relative;
+  }
+
+  .talking {
+    color: white;
+    font-size: 2.8vh;
+  }
+
+  #msg {
+    margin: 10px 10px 10px 10px;
+    width: 30vh;
+    height: 100%;
+    background-color: rgb(255, 255, 255, 0);
+    border: 5px solid #6cffc8;
+    border-radius: 10px;
+    font-size: 4vh;
+    color: white;
+    text-align: center;
+  }
+}
