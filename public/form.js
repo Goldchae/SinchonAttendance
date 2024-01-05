@@ -1,14 +1,16 @@
 import {
-  THIS_WEEK_WORD,
   ALREADY_END,
   END,
   DO_ATTENDANCE,
   NOT_EXIST,
   TRY_AGAIN,
   ROADING,
+  ALREADY_FINISHED,
+  YET_STARTED,
+  THIS_WEEK,
 } from "./consts.js";
 
-import { IsStudent, IsStudentHere, studentIsHere } from "./firebaseData.js";
+import { IsStudent, IsStudentHere, studentIsHere, db } from "./firebaseData.js";
 
 var form = document.getElementById("form");
 var input = document.getElementById("msg");
@@ -19,18 +21,68 @@ var msg = document.getElementById("msg").value;
 var mode = 1;
 var thisHandle;
 
+var thisWeekWord;
+var startTime;
+const secret = db.collection("secret");
+
+function fromclicked(callback) {
+  secret.get().then((data) => {
+    data.forEach((doc) => {
+      if (doc.id == THIS_WEEK) {
+        var secretArray = doc.data();
+        thisWeekWord = secretArray["secretCode"];
+        startTime = secretArray["startTime"];
+      }
+    });
+  });
+
+  callback(thisWeekWord, startTime);
+}
+
+const today = new Date();
+
 window.onload = function () {
   // 폼 제출 부분
+  fromclicked(function (thisWeekWord, startTime) {
+    //console.log(thisWeekWord, startTime);
+  });
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
     var msg = input.value;
     if (msg) {
       txt.textContent = ROADING;
-      form.reset();
       if (mode == 1) {
-        thisHandle = msg;
-        getHandle(msg);
+        //시간 체크
+        var time =
+          ("0" + today.getHours()).slice(-2) +
+          ("0" + today.getMinutes()).slice(-2) +
+          ("0" + today.getSeconds()).slice(-2);
+        time = Number(time);
+
+        fromclicked(function (thisWeekWord, startTime) {
+          if (
+            // 설정하지 않은 상태
+            thisWeekWord == null ||
+            thisWeekWord == "" ||
+            typeof thisWeekWord == "undefined"
+          ) {
+            txt.innerHTML = YET_STARTED;
+          } else if (
+            // 강사진이 설정을 완료한 상태일 시
+            //15분이 지나지 않음
+            time - startTime <=
+            1500
+          ) {
+            form.reset();
+            thisHandle = msg;
+            getHandle(msg);
+          } else {
+            // 시간이 지난 상태
+            txt.innerHTML = ALREADY_FINISHED;
+          }
+        });
       } else {
         getCode(msg);
       }
@@ -57,7 +109,7 @@ function getHandle(handle) {
 
 function getCode(code) {
   // 코드가 맞을 때
-  if (code == THIS_WEEK_WORD) {
+  if (code == thisWeekWord) {
     studentIsHere(thisHandle);
     txt.innerHTML = END;
     mode = 1;

@@ -22,7 +22,7 @@ var attendanceArray;
 attendance.get().then((data) => {
   data.forEach((doc) => {
     if (doc.id == THIS_WEEK) {
-      console.log(doc.data());
+      //console.log(doc.data());
       attendanceArray = doc.data();
     }
   });
@@ -46,7 +46,23 @@ function IsStudentHere(handle) {
 
 //핸들 출석으로 업데이트
 function studentIsHere(handle) {
-  attendance.doc(THIS_WEEK).update({ [handle]: true });
+  attendance.doc(String(THIS_WEEK)).update({ [handle]: true });
 }
 
-export { IsStudent, IsStudentHere, studentIsHere };
+var thisWeekWord;
+var startTime;
+//강사진이 설정한 출석코드, 입력시간 가져오기
+function whatIsWord() {
+  const secret = db.collection("secret");
+  secret.get().then((data) => {
+    data.forEach((doc) => {
+      if (doc.id == THIS_WEEK) {
+        var secretArray = doc.data();
+        thisWeekWord = secretArray["secretCode"];
+        startTime = secretArray["startTime"];
+      }
+    });
+  });
+}
+
+export { IsStudent, IsStudentHere, studentIsHere, whatIsWord, db };
