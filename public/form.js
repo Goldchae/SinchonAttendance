@@ -79,27 +79,30 @@ window.onload = function () {
             thisHandle = msg;
             getHandle(msg);
           } else {
-            // 시간이 지난 상태
+            // 시간이 지난 상태ß
             txt.innerHTML = ALREADY_FINISHED;
           }
         });
       } else {
         getCode(msg);
+        form.reset();
       }
     }
   });
 };
 
+var twice = 1;
 function getHandle(handle) {
   // 핸들이 리스트에 있을 때
   if (IsStudent(handle)) {
     // 핸들이 출석했을 때
-    if (IsStudentHere(handle)) {
-      txt.innerHTML = ALREADY_END;
-    } else {
+    if (!IsStudentHere(handle) && twice == 1) {
       // 핸들이 출석하지 않았을 떄
       txt.innerHTML = DO_ATTENDANCE;
       mode = 2;
+      twice = 2;
+    } else {
+      txt.innerHTML = ALREADY_END;
     }
   } else {
     // 핸들이 리스트에 없을 때
