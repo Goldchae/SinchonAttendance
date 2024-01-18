@@ -46,7 +46,6 @@ window.onload = function () {
   fromclicked(function (thisWeekWord, startTime) {
     //console.log(thisWeekWord, startTime);
   });
-
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -60,7 +59,6 @@ window.onload = function () {
           ("0" + today.getMinutes()).slice(-2) +
           ("0" + today.getSeconds()).slice(-2);
         time = Number(time);
-
         fromclicked(function (thisWeekWord, startTime) {
           if (
             // 설정하지 않은 상태
@@ -79,7 +77,7 @@ window.onload = function () {
             thisHandle = msg;
             getHandle(msg);
           } else {
-            // 시간이 지난 상태ß
+            // 시간이 지난 상태
             txt.innerHTML = ALREADY_FINISHED;
           }
         });
@@ -95,13 +93,13 @@ var twice = 1;
 function getHandle(handle) {
   // 핸들이 리스트에 있을 때
   if (IsStudent(handle)) {
-    // 핸들이 출석했을 때
     if (!IsStudentHere(handle) && twice == 1) {
       // 핸들이 출석하지 않았을 떄
       txt.innerHTML = DO_ATTENDANCE;
       mode = 2;
       twice = 2;
     } else {
+      // 핸들이 출석했을 때
       txt.innerHTML = ALREADY_END;
     }
   } else {
@@ -115,6 +113,7 @@ function getCode(code) {
   if (code == thisWeekWord) {
     studentIsHere(thisHandle);
     txt.innerHTML = END;
+    document.getElementById("inMiddle").style.display = "none";
     mode = 1;
   } else {
     // 코드가 틀릴 때

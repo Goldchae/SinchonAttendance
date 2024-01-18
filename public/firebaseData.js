@@ -41,14 +41,7 @@ function IsStudent(handle) {
 
 //핸들 해당 주차 출석 여부 반환
 function IsStudentHere(handle) {
-  attendance.get().then((data) => {
-    data.forEach((doc) => {
-      if (doc.id == THIS_WEEK) {
-        attendanceArray = doc.data();
-        return attendanceArray[handle]; // true, false
-      }
-    });
-  });
+  return attendanceArray[handle]; // true, false
 }
 
 //핸들 출석으로 업데이트
