@@ -24,6 +24,7 @@ function isLectureDate(curDate: string): curDate is keyof typeof lectureDates {
 }
 
 function lectureWeek(curDate: string): number {
+  // TODO : 강의 날짜가 아닐 때 input disabled 등의 처리
   if (!isLectureDate(curDate)) {
     alert("강의 날짜가 아닙니다.");
     return 0;

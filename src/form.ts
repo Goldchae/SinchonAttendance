@@ -122,7 +122,7 @@ window.onload = function () {
 
     const { secretCode, startTime } = thisWeekWordObject;
 
-    // console.log(secretCode, startTime, currentTime);
+    console.log(secretCode, startTime, currentTime);
 
     if (!secretCode || !startTime) {
       // 출석코드가 없는 상태 -> 강사가 출석코드를 설정하지 않은 상태이므로 출석 시간이 아니라고 알림

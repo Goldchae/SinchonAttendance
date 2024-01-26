@@ -42,9 +42,7 @@ const today = new Date();
 
 window.onload = function () {
   // 폼 제출 부분
-  fromclicked(function (thisWeekWord, startTime) {
-    //console.log(thisWeekWord, startTime);
-  });
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
