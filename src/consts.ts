@@ -31,9 +31,9 @@ function lectureWeek(curDate: string): number {
   return lectureDates[curDate];
 }
 
-// const THIS_WEEK = lectureWeek(todayDate());
+const THIS_WEEK = lectureWeek(todayDate());
 // for test
-const THIS_WEEK = 0;
+// const THIS_WEEK = 0;
 
 const MESSAGE = {
   YET_STARTED: "출석 시간이 아닙니다.",
