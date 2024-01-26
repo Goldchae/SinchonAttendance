@@ -26,7 +26,7 @@ function isLectureDate(curDate: string): curDate is keyof typeof lectureDates {
 function lectureWeek(curDate: string): number {
   if (!isLectureDate(curDate)) {
     alert("강의 날짜가 아닙니다.");
-    throw new Error("Invalid date");
+    return 0;
   }
   return lectureDates[curDate];
 }
