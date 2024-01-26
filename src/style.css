@@ -1,0 +1,116 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #000;
+}
+
+.bg-dark {
+  background-color: rgba(33, 37, 41, 1);
+}
+
+.outer {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("./image/backGround2.png");
+  background-position: center center;
+  background-size: cover;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 0;
+}
+
+.attendForm {
+  height: 11vh;
+  display: flex;
+  margin-top: 10px;
+}
+
+.attendInput {
+  margin: 0 10px;
+  width: 40vh;
+  height: 100%;
+  background-color: rgb(255, 255, 255, 0);
+  border: 5px solid #6cffc8;
+  border-radius: 10px;
+  font-size: 4vh;
+  color: white;
+  text-align: center;
+}
+
+.attendSubmit {
+  width: 10vh;
+  background-image: url("./image/check.png");
+  background-size: cover;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+  color: black;
+  font-size: 4vh;
+}
+
+.navbar {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  z-index: 1;
+}
+
+.textIn {
+  height: 20%;
+  width: 65%;
+  margin: 0 auto;
+
+  background-image: url("./image/textBox3.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner {
+  width: 90%;
+}
+
+.talking {
+  color: white;
+  font-size: 4vh;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 670px) {
+  .textIn {
+    width: 90%;
+  }
+
+  .talking {
+    font-size: 2.8vh;
+  }
+
+  .attendInput {
+    width: 30vh;
+  }
+}
