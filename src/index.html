@@ -7,9 +7,39 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no"
     />
+    <meta property="og:image" content="./image/240.png" />
     <title>알고리즘캠프 출석체크</title>
   </head>
   <body>
-    <button>하아하이</button>
+    <nav class="navbar navbar-dark bg-dark">
+      <img class="navbar-brand" src="./image/240.png" alt="logo" />
+      <a class="navbar-brand" href="#">알고리즘캠프 출석확인</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+
+    <div class="outer">
+      <div class="textIn">
+        <div class="inner">
+          <h1 id="txt" class="talking">백준 핸들을 입력해주세요.</h1>
+        </div>
+      </div>
+
+      <div>
+        <form class="attendForm">
+          <input type="text" class="attendInput" />
+          <button type="submit" class="attendSubmit"></button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
