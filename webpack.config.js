@@ -15,19 +15,16 @@ module.exports = {
         test: /\.css$/i,
         use: [
           "style-loader",
-          {
-            loader: "css-loader",
-            options: { url: false },
-          },
+          "css-loader", // translates CSS into CommonJS
         ],
-      },
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: "asset/resource",
       },
       {
         test: /\.html$/i,
         loader: "html-loader",
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
       },
     ],
   },
