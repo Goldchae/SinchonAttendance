@@ -121,8 +121,9 @@ window.addEventListener("load", async () => {
 
 function emptyInput() {
   if (
-    CURRENT_ATTEND_STATUS.attendStep === 1 ||
-    CURRENT_ATTEND_STATUS.attendStep === 2
+    CURRENT_ATTEND_STATUS.attendStep === 1 &&
+    userMessageHeading.textContent !== MESSAGE.ALREADY_FINISHED &&
+    userMessageHeading.textContent !== MESSAGE.END
   ) {
     alert("핸들을 입력해 주세요");
   } else {
@@ -160,7 +161,6 @@ window.addEventListener("load", function () {
         CURRENT_ATTEND_STATUS.thisWeekSecretCode,
         userInputValue
       );
-
       attendForm.reset();
       return;
     }
