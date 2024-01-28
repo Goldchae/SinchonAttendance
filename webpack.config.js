@@ -8,7 +8,7 @@ module.exports = {
     "./src/consts.ts",
     "./src/firebaseData.ts",
     "./src/form.ts",
-    "./src/utils.ts",
+    "./src/format.ts",
     "./src/time.ts",
   ],
   module: {

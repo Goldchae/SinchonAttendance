@@ -1,13 +1,7 @@
-import { THIS_WEEK } from "./consts";
 import { initializeApp } from "firebase/app";
-import {
-  getFirestore,
-  getDoc,
-  doc,
-  DocumentReference,
-  DocumentData,
-  updateDoc,
-} from "firebase/firestore";
+import { getFirestore, getDoc, doc, updateDoc } from "firebase/firestore";
+import { getCurrentLectureWeek } from "./time";
+import { formatTimeHHMMSS } from "./format";
 
 //파이어베이스 초기 세팅
 const firebaseConfig = {
@@ -25,48 +19,43 @@ const firebaseApp = initializeApp(firebaseConfig);
 
 const db = getFirestore(firebaseApp);
 // 이번 주차 출석 데이터 가져오기
-const thisWeekAttendanceRef = doc(db, "attendance", String(THIS_WEEK));
-const thisWeekSecretRef = doc(db, "secret", String(THIS_WEEK));
+const thisWeekAttendanceRef = doc(
+  db,
+  "attendance",
+  String(getCurrentLectureWeek())
+);
+// 이번 주차 출석 코드 가져오기
+const thisWeekSecretRef = doc(db, "secret", String(getCurrentLectureWeek()));
 
-// 핸들이 해당 주차 출석 리스트에 있는지 체크
-function isStudent(
-  attendance: Record<string, boolean>,
-  handle: string
-): boolean {
-  return attendance[handle] !== undefined && attendance[handle] !== null;
+async function getThisWeekAttendance(): Promise<
+  Record<string, boolean> | undefined
+> {
+  const attedanceRef = await getDoc(thisWeekAttendanceRef);
+  return attedanceRef.data();
 }
 
-//핸들 해당 주차 출석 여부 반환
-function isAttendance(
-  attendance: Record<string, boolean>,
-  handle: string
-): boolean {
-  return attendance[handle];
+async function getThisWeekSecret(): Promise<
+  Record<string, string> | undefined
+> {
+  const secretRef = await getDoc(thisWeekSecretRef);
+  const secretCode = secretRef.data()?.secretCode;
+  const startTime = secretRef.data()?.startTime;
+  const secretCodeStartTime = formatTimeHHMMSS(startTime);
+  // {secretCode: "1234", secretCodeStartTime: "012400"} 형식
+  return { secretCode, secretCodeStartTime };
 }
 
-//핸들 출석으로 업데이트
-async function studentIsHere(
-  weekAttendanceRef: DocumentReference<DocumentData, DocumentData>,
-  handle: string
-) {
-  await updateDoc(weekAttendanceRef, { [handle]: true });
-}
-
-async function getThisWeekWordObject() {
-  const code = (await getDoc(thisWeekSecretRef)).data();
-  if (!code || !code.secretCode) {
-    // 출석코드가 없다면
-    return null;
-  }
-  // {secretCode: "1234", startTime: "012400"} 형식
-  return code;
+async function updateStudentAttendance(
+  handle: string,
+  isAttendance: boolean
+): Promise<void> {
+  await updateDoc(thisWeekAttendanceRef, { [handle]: isAttendance });
 }
 
 export {
   thisWeekAttendanceRef,
   thisWeekSecretRef,
-  isStudent,
-  isAttendance,
-  studentIsHere,
-  getThisWeekWordObject,
+  getThisWeekAttendance,
+  getThisWeekSecret,
+  updateStudentAttendance,
 };

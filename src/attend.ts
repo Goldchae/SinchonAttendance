@@ -5,15 +5,15 @@ function isStudentInAttendance(
   attendance: Record<string, boolean>,
   handle: string
 ): boolean {
-  return Boolean(attendance[handle]);
+  return handle in attendance && Object.hasOwnProperty.call(attendance, handle);
 }
 
 //핸들 해당 주차 출석 여부 반환
-function isAttended(
+function isStudentAttended(
   attendance: Record<string, boolean>,
   handle: string
 ): boolean {
   return attendance[handle];
 }
 
-export { isStudentInAttendance, isAttended };
+export { isStudentInAttendance, isStudentAttended };

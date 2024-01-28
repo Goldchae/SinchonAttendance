@@ -142,6 +142,26 @@ body {
   font-weight: 500;
 }
 
+.timerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.timerTitle {
+  color: white;
+  font-size: 4vh;
+  font-weight: 500;
+}
+
+.timer {
+  color: white;
+  font-size: 3vh;
+  font-weight: 500;
+}
+
 @media screen and (max-width: 670px) {
   .textIn {
     width: 90%;
