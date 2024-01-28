@@ -3,6 +3,7 @@ import { ATTEND_LIMIT_TIME, MESSAGE } from "./consts";
 import {
   getThisWeekAttendance,
   getThisWeekSecret,
+  lectureClass,
   updateStudentAttendance,
 } from "./firebaseData";
 
@@ -74,6 +75,17 @@ window.addEventListener("load", () => {
 const timerContent = document.querySelector(".timer") as HTMLParagraphElement;
 const timerTitle = document.querySelector(".timerTitle") as HTMLHeadingElement;
 
+window.addEventListener("load", () => {
+  const navbarTitle = document.querySelector(
+    "#navbar-title"
+  ) as HTMLAnchorElement;
+  console.log(lectureClass);
+  navbarTitle.textContent =
+    lectureClass === "novice"
+      ? "알고리즘 캠프 초급 출석확인"
+      : "알고리즘 캠프 중급 출석확인";
+});
+
 // 타이머 설정
 window.addEventListener("load", async () => {
   const thisWeekWordObject = await getThisWeekSecret();
@@ -99,7 +111,7 @@ window.addEventListener("load", async () => {
   const currentTime = getCurrentTime();
   const timeDifference = timeDifferenceInSecond(currentTime, secretCodeEndTime);
 
-  console.log(timeDifference, secretCodeEndTime, currentTime);
+  // console.log(timeDifference, secretCodeEndTime, currentTime);
 
   if (Math.abs(timeDifference) > ATTEND_LIMIT_TIME || timeDifference < 0) {
     timerTitle.textContent = "출석 시간이 아닙니다.";
@@ -182,7 +194,7 @@ window.addEventListener("load", function () {
       return;
     }
 
-    console.log(thisWeekInfo);
+    // console.log(thisWeekInfo);
     // DB 연결 성공. 출석 시간 확인
     const { secretCode, secretCodeStartTime } = thisWeekSecretCode;
     // startTime이 없음 (강사진이 설정 안함)

@@ -3,8 +3,11 @@ import { getFirestore, getDoc, doc, updateDoc } from "firebase/firestore";
 import { getCurrentLectureWeek } from "./time";
 import { formatTimeHHMMSS } from "./format";
 
+// TODO : novice or advanced
+export const lectureClass: string = "advanced";
+
 //파이어베이스 초기 세팅
-const firebaseConfig = {
+const firebaseNoviceConfig = {
   apiKey: "AIzaSyDPiIf3b-npnhE1yUe6zh71rH0Ao8LKeTo",
   authDomain: "sinchonattendance.firebaseapp.com",
   databaseURL: "https://sinchonattendance-default-rtdb.firebaseio.com",
@@ -14,6 +17,19 @@ const firebaseConfig = {
   appId: "1:502890463273:web:8da140c037f1f532e09c38",
   measurementId: "G-ND0CDPHZ3Z",
 };
+
+const firebaseAdvancedConfig = {
+  apiKey: "AIzaSyC2csBRWTvcDJY02-v182SdOFohVgnh170",
+  authDomain: "sinchonattendanceadvanced.firebaseapp.com",
+  projectId: "sinchonattendanceadvanced",
+  storageBucket: "sinchonattendanceadvanced.appspot.com",
+  messagingSenderId: "458774138568",
+  appId: "1:458774138568:web:ee7151c3c3aef58a489ffd",
+  measurementId: "G-70V4V9HH7Z",
+};
+
+const firebaseConfig =
+  lectureClass === "novice" ? firebaseNoviceConfig : firebaseAdvancedConfig;
 
 const firebaseApp = initializeApp(firebaseConfig);
 
