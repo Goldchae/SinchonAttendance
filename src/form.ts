@@ -84,6 +84,8 @@ window.addEventListener("load", async () => {
     userMessageHeading.textContent = MESSAGE.YET_STARTED;
     attendInput.disabled = true;
     attendSubmitButton.disabled = true;
+    attendInput.value = "";
+    timerTitle.textContent = "";
     timerContent.textContent = "";
     return;
   }
@@ -185,9 +187,13 @@ window.addEventListener("load", function () {
     // startTime이 없음 (강사진이 설정 안함)
     if (!secretCode || secretCodeStartTime === "000000") {
       userMessageHeading.textContent = MESSAGE.YET_STARTED;
+      attendInput.value = "";
+      timerTitle.textContent = "";
+      timerContent.textContent = "";
+
       attendInput.disabled = true;
       attendSubmitButton.disabled = true;
-      timerContent.textContent = "";
+
       clearInterval(CURRENT_ATTEND_STATUS.countDownInterval);
       return;
     }
