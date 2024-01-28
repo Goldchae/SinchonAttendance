@@ -85,7 +85,7 @@ window.addEventListener("load", async () => {
     attendInput.disabled = true;
     attendSubmitButton.disabled = true;
     attendInput.value = "";
-    timerTitle.textContent = "";
+    timerTitle.textContent = "강사진이 출석코드를 세팅하면 새로고침해 주세요.";
     timerContent.textContent = "";
     return;
   }
@@ -99,7 +99,7 @@ window.addEventListener("load", async () => {
   const currentTime = getCurrentTime();
   const timeDifference = timeDifferenceInSecond(currentTime, secretCodeEndTime);
 
-  // console.log(timeDifference, secretCodeEndTime, currentTime);
+  console.log(timeDifference, secretCodeEndTime, currentTime);
 
   if (Math.abs(timeDifference) > ATTEND_LIMIT_TIME || timeDifference < 0) {
     timerTitle.textContent = "출석 시간이 아닙니다.";
@@ -182,13 +182,15 @@ window.addEventListener("load", function () {
       return;
     }
 
+    console.log(thisWeekInfo);
     // DB 연결 성공. 출석 시간 확인
     const { secretCode, secretCodeStartTime } = thisWeekSecretCode;
     // startTime이 없음 (강사진이 설정 안함)
     if (!secretCode || secretCodeStartTime === "000000") {
       userMessageHeading.textContent = MESSAGE.YET_STARTED;
       attendInput.value = "";
-      timerTitle.textContent = "";
+      timerTitle.textContent =
+        "강사진이 출석코드를 세팅하면 새로고침해 주세요.";
       timerContent.textContent = "";
 
       attendInput.disabled = true;
