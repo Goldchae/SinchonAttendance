@@ -36,6 +36,7 @@ type AttendStatus = {
   thisWeekAttendance: Record<string, boolean>;
   thisWeekSecretCode: string;
   secretCodeStartTime: string;
+  countDownInterval?: NodeJS.Timeout;
 };
 
 const CURRENT_ATTEND_STATUS: AttendStatus = {
@@ -76,8 +77,14 @@ const timerTitle = document.querySelector(".timerTitle") as HTMLHeadingElement;
 // 타이머 설정
 window.addEventListener("load", async () => {
   const thisWeekWordObject = await getThisWeekSecret();
-  if (!thisWeekWordObject || !thisWeekWordObject.secretCodeStartTime) {
-    alert("출석 시간을 불러오는 데에 실패했습니다. 새로고침해 주세요.");
+  if (
+    !thisWeekWordObject ||
+    thisWeekWordObject.secretCodeStartTime === "000000"
+  ) {
+    userMessageHeading.textContent = MESSAGE.YET_STARTED;
+    attendInput.disabled = true;
+    attendSubmitButton.disabled = true;
+    timerContent.textContent = "";
     return;
   }
   const { secretCodeStartTime } = thisWeekWordObject;
@@ -98,7 +105,7 @@ window.addEventListener("load", async () => {
   } else {
     timerTitle.textContent = "남은 출석 시간";
     timerContent.textContent = formatSecondHHMMSS(timeDifference, ":");
-    startCountdown(
+    CURRENT_ATTEND_STATUS.countDownInterval = startCountdown(
       timeDifference,
       (remainingTime) => {
         timerContent.textContent = formatSecondHHMMSS(remainingTime, ":");
@@ -113,7 +120,10 @@ window.addEventListener("load", async () => {
 });
 
 function emptyInput() {
-  if (CURRENT_ATTEND_STATUS.attendStep == 1) {
+  if (
+    CURRENT_ATTEND_STATUS.attendStep === 1 ||
+    CURRENT_ATTEND_STATUS.attendStep === 2
+  ) {
     alert("핸들을 입력해 주세요");
   } else {
     alert("출석코드를 입력해 주세요");
@@ -150,6 +160,7 @@ window.addEventListener("load", function () {
         CURRENT_ATTEND_STATUS.thisWeekSecretCode,
         userInputValue
       );
+
       attendForm.reset();
       return;
     }
@@ -172,8 +183,12 @@ window.addEventListener("load", function () {
     // DB 연결 성공. 출석 시간 확인
     const { secretCode, secretCodeStartTime } = thisWeekSecretCode;
     // startTime이 없음 (강사진이 설정 안함)
-    if (!secretCode || !secretCodeStartTime) {
+    if (!secretCode || secretCodeStartTime === "000000") {
       userMessageHeading.textContent = MESSAGE.YET_STARTED;
+      attendInput.disabled = true;
+      attendSubmitButton.disabled = true;
+      timerContent.textContent = "";
+      clearInterval(CURRENT_ATTEND_STATUS.countDownInterval);
       return;
     }
     // console.log(thisWeekAttendance, secretCode, secretCodeStartTime);

@@ -86,6 +86,8 @@ function startCountdown(
       onTick(Math.ceil(remainingTime / 1000));
     }
   }, 1000);
+
+  return interval;
 }
 
 // 강의의 현재 회차를 구하기
