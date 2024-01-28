@@ -20,9 +20,9 @@ import { isStudentAttended, isStudentInAttendance } from "./attend";
 
 const attendForm = document.querySelector(".attendForm") as HTMLFormElement;
 const attendInput = document.querySelector(".attendInput") as HTMLInputElement;
-// const attendSubmitButton = document.querySelector(
-//   ".attendSubmit"
-// ) as HTMLButtonElement;
+const attendSubmitButton = document.querySelector(
+  ".attendSubmit"
+) as HTMLButtonElement;
 const userMessageHeading = document.querySelector(
   ".talking"
 ) as HTMLHeadingElement;
@@ -105,7 +105,8 @@ window.addEventListener("load", async () => {
       },
       () => {
         timerTitle.textContent = "출석 시간이 지났습니다.";
-        // TODO : 출석 시간이 지나면 출석을 못하게 막기
+        attendInput.disabled = true;
+        attendSubmitButton.disabled = true;
       }
     );
   }
