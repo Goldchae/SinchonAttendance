@@ -3,7 +3,14 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  entry: ["./src/consts.ts", "./src/firebaseData.ts", "./src/form.ts"],
+  entry: [
+    "./src/attend.ts",
+    "./src/consts.ts",
+    "./src/firebaseData.ts",
+    "./src/form.ts",
+    "./src/utils.ts",
+    "./src/time.ts",
+  ],
   module: {
     rules: [
       {

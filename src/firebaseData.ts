@@ -28,7 +28,7 @@ const db = getFirestore(firebaseApp);
 const thisWeekAttendanceRef = doc(db, "attendance", String(THIS_WEEK));
 const thisWeekSecretRef = doc(db, "secret", String(THIS_WEEK));
 
-//핸들 해당 주차에 있는지 체크
+// 핸들이 해당 주차 출석 리스트에 있는지 체크
 function isStudent(
   attendance: Record<string, boolean>,
   handle: string
@@ -55,7 +55,7 @@ async function studentIsHere(
 async function getThisWeekWordObject() {
   const code = (await getDoc(thisWeekSecretRef)).data();
   if (!code || !code.secretCode) {
-    alert("출석코드가 없습니다. 다시 시도해주세요.");
+    // 출석코드가 없다면
     return null;
   }
   // {secretCode: "1234", startTime: "012400"} 형식
@@ -70,60 +70,3 @@ export {
   studentIsHere,
   getThisWeekWordObject,
 };
-
-// (async function getAttendance() {
-//   console.log(THIS_WEEK, thisWeekAttendanceRef);
-//   const attendance = await getDoc(thisWeekAttendanceRef);
-//   console.log(attendance.data());
-// })();
-
-// 데이터 확인 테스트 / 저장
-/*let attendanceArray;
-
-attendance.get().then((data) => {
-  data.forEach((doc) => {
-    if (doc.id == THIS_WEEK) {
-      //console.log(doc.data());
-      attendanceArray = doc.data();
-    }
-  });
-});
-
-//핸들 해당 주차에 있는지 체크
-function IsStudent(handle) {
-  if (
-    typeof attendanceArray[handle] == "undefined" ||
-    attendanceArray[handle] == null
-  ) {
-    return false;
-  }
-  return true;
-}
-
-//핸들 해당 주차 출석 여부 반환
-function IsStudentHere(handle) {
-  return attendanceArray[handle]; // true, false
-}
-
-//핸들 출석으로 업데이트
-function studentIsHere(handle) {
-  attendance.doc(String(THIS_WEEK)).update({ [handle]: true });
-}
-
-let thisWeekWord;
-let startTime;
-//강사진이 설정한 출석코드, 입력시간 가져오기
-function whatIsWord() {
-  const secret = db.collection("secret");
-  secret.get().then((data) => {
-    data.forEach((doc) => {
-      if (doc.id == THIS_WEEK) {
-        const secretArray = doc.data();
-        thisWeekWord = secretArray["secretCode"];
-        startTime = secretArray["startTime"];
-      }
-    });
-  });
-}
-
-export { IsStudent, IsStudentHere, studentIsHere, whatIsWord, db };*/

@@ -1,23 +1,17 @@
-const lectureDates = {
-  "0122": 1,
-  "0125": 2,
-  "0129": 3,
-  "0201": 4,
-  "0205": 5,
-  "0208": 6,
-  "0213": 7,
-  "0215": 8,
-  "0219": 9,
-  "0222": 10,
-};
+import { getCurrentDate } from "./time";
 
-function todayDate(): string {
-  const today = new Date();
-  return (
-    (today.getMonth() + 1).toString() +
-    today.getDate().toString().padStart(2, "0")
-  );
-}
+const lectureDates = {
+  "240122": 1,
+  "240125": 2,
+  "240129": 3,
+  "240201": 4,
+  "240205": 5,
+  "240208": 6,
+  "240213": 7,
+  "240215": 8,
+  "240219": 9,
+  "240222": 10,
+};
 
 function isLectureDate(curDate: string): curDate is keyof typeof lectureDates {
   return curDate in lectureDates;
@@ -32,7 +26,7 @@ function lectureWeek(curDate: string): number {
   return lectureDates[curDate];
 }
 
-const THIS_WEEK = lectureWeek(todayDate());
+const THIS_WEEK = lectureWeek(getCurrentDate());
 // for test
 // const THIS_WEEK = 0;
 

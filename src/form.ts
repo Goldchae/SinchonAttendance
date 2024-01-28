@@ -89,6 +89,7 @@ window.onload = function () {
   attendForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
+    console.log("submit");
     const input = attendInput.value;
     // HHMMSS 형태의 현재 시간
     const currentTime = getCurrentTime();
@@ -117,6 +118,7 @@ window.onload = function () {
     const thisWeekWordObject = await getThisWeekWordObject();
     if (!thisWeekWordObject) {
       alert("출석코드를 불러오는 데에 실패했습니다. 다시 시도해 주세요.");
+      userMessageHeading.textContent = MESSAGE.TRY_AGAIN;
       return;
     }
 
