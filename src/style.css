@@ -1,0 +1,177 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  --toggler-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #000;
+}
+
+.bg-dark {
+  background-color: rgba(33, 37, 41, 1);
+}
+
+.outer {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("./image/backGround2.png");
+  background-position: center center;
+  background-size: cover;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 0;
+}
+
+.attendForm {
+  height: 11vh;
+  display: flex;
+  margin-top: 10px;
+}
+
+.attendInput {
+  margin: 0 10px;
+  width: 40vh;
+  height: 100%;
+  background-color: rgb(255, 255, 255, 0);
+  border: 5px solid #6cffc8;
+  border-radius: 10px;
+  font-size: 4vh;
+  color: white;
+  text-align: center;
+}
+
+.attendSubmit {
+  width: 10vh;
+  background-image: url("./image/check.png");
+  background-size: cover;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+  color: black;
+  font-size: 4vh;
+}
+
+.navbar {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  z-index: 1;
+}
+
+.navbar-brand {
+  height: 6vh;
+  padding: 5px 0px;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navbar-toggler {
+  cursor: pointer;
+  padding: 0.25rem 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.55);
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.375rem;
+  transition: box-shadow 0.15s ease-in-out;
+
+  text-transform: none;
+}
+
+.navbar-toggler:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+}
+
+.navbar-toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  background-image: var(--toggler-icon);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+.textIn {
+  height: 20%;
+  width: 65%;
+  margin: 0 auto;
+  background-image: url("./image/textBox3.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner {
+  width: 90%;
+}
+
+.talking {
+  color: white;
+  font-size: 4vh;
+  font-weight: 500;
+}
+
+.timerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.timerTitle {
+  color: white;
+  font-size: 4vh;
+  font-weight: 500;
+}
+
+.timer {
+  color: white;
+  font-size: 3vh;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 670px) {
+  .textIn {
+    width: 90%;
+  }
+
+  .talking {
+    font-size: 2.8vh;
+  }
+
+  .attendInput {
+    width: 30vh;
+  }
+}

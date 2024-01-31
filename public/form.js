@@ -16,8 +16,6 @@ var form = document.getElementById("form");
 var input = document.getElementById("msg");
 var txt = document.getElementById("txt");
 
-var msg = document.getElementById("msg").value;
-
 var mode = 1;
 var thisHandle;
 
@@ -25,6 +23,7 @@ var thisWeekWord;
 var startTime;
 const secret = db.collection("secret");
 
+// 이번주의 비밀 단어와 시작 시간을 가져와서 콜백함수로 넘겨줌
 function fromclicked(callback) {
   secret.get().then((data) => {
     data.forEach((doc) => {
@@ -43,9 +42,7 @@ const today = new Date();
 
 window.onload = function () {
   // 폼 제출 부분
-  fromclicked(function (thisWeekWord, startTime) {
-    //console.log(thisWeekWord, startTime);
-  });
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
