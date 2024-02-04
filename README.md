@@ -52,7 +52,29 @@ firebase deploy
 
 ## 폴더 구조
 
-
+```
+/root
+├── /src // 프로젝트 소스 코드 폴더
+│   ├── /image // 사용할 이미지 파일
+│   ├── attend.ts // 출석체크 관련 함수 정의
+│   ├── consts.ts // 상수 정의
+│   ├── firebaseData.ts // Firebase 관련 데이터와 DB 접근 함수 정의
+|   ├── form.ts // 출석체크 폼의 동작 정의
+|   ├── format.ts // 시간 포맷 관련 함수 정의
+|   ├── time.ts // 시간 관련 함수 정의
+|   ├── index.html // 메인 페이지 문서 구조 정의
+|   ├── style.css // 전역 스타일 시트
+├── /dist // 빌드 결과물 폴더
+├── .eslintignore // ESLint 무시 파일 목록
+├── .eslintrc.json // ESLint 설정 파일
+├── .firebaserc // firebase 설정 파일
+├── firebase.json // firebase 설정 파일
+├── firestore.rules // firestore 프로젝트 규칙 파일
+├── package.json // 프로젝트 정보 및 의존성 목록
+├── tsconfig.json // TypeScript 설정 파일
+├── webpack.config.js // Webpack 설정 파일
+└── yarn.lock // 의존성 버전 세부 목록
+```
 
 ## DB 구조
 
