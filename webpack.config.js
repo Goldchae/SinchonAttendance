@@ -1,16 +1,21 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "development",
-  entry: [
-    "./src/attend.ts",
-    "./src/consts.ts",
-    "./src/firebaseData.ts",
-    "./src/form.ts",
-    "./src/format.ts",
-    "./src/time.ts",
-  ],
+  entry: {
+    main: [
+      "./src/attend.ts",
+      "./src/consts.ts",
+      "./src/firebaseData.ts",
+      "./src/form.ts",
+      "./src/format.ts",
+      "./src/time.ts",
+    ],
+    state: "./src/state.css",
+  },
+
   module: {
     rules: [
       {
@@ -43,7 +48,7 @@ module.exports = {
     port: 9000,
   },
   output: {
-    filename: "main.js",
+    filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
@@ -52,9 +57,22 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js", ".jsx", ".json", ".css"],
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+    }),
     new HtmlWebpackPlugin({
       title: "Sinchon Attendance",
       template: "./src/index.html",
+      filename: "index.html",
+      chunks: ["main"],
+    }),
+    // state.html을 위한 설정
+    new HtmlWebpackPlugin({
+      title: "Sinchon State",
+      template: "./src/state.html",
+      filename: "state.html",
+      excludeChunks: ["main"],
+      chunks: ["state"],
     }),
   ],
 };
