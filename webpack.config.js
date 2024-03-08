@@ -3,31 +3,17 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  entry: [
-    "./src/attend.ts",
-    "./src/consts.ts",
-    "./src/firebaseData.ts",
-    "./src/form.ts",
-    "./src/format.ts",
-    "./src/time.ts",
-  ],
+  entry: "./src/index.tsx", // './src/index.tsx' './src/index.js' './src/index.jsx
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.(ts|tsx)$/,
         use: "ts-loader",
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/i,
-        use: [
-          "style-loader",
-          "css-loader", // translates CSS into CommonJS
-        ],
-      },
-      {
-        test: /\.html$/i,
-        loader: "html-loader",
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -39,11 +25,14 @@ module.exports = {
     static: {
       directory: path.join(__dirname, "dist"),
     },
+    historyApiFallback: true, // SPA 라우팅을 위해 필요
+    open: true, // 서버 시작 시 브라우저 오픈
     compress: true,
     port: 9000,
+    hot: true,
   },
   output: {
-    filename: "main.js",
+    filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
@@ -53,7 +42,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Sinchon Attendance",
+      title: "Sinchon Attendance Development",
       template: "./src/index.html",
     }),
   ],

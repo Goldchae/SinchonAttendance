@@ -37,7 +37,7 @@ type AttendStatus = {
   thisWeekAttendance: Record<string, boolean>;
   thisWeekSecretCode: string;
   secretCodeStartTime: string;
-  countDownInterval?: NodeJS.Timeout;
+  countDownInterval?: any;
 };
 
 const CURRENT_ATTEND_STATUS: AttendStatus = {
