@@ -1,14 +1,40 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const ReactRefreshTypeScript = require("react-refresh-typescript");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 module.exports = {
-  mode: "development",
-  entry: "./src/index.tsx", // './src/index.tsx' './src/index.js' './src/index.jsx
+  mode: isDevelopment ? "development" : "production",
+  entry: "./src/index.tsx",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    clean: true,
+  },
+  resolve: {
+    modules: [path.resolve(__dirname, "src"), "node_modules"],
+    extensions: [".tsx", ".ts", ".js", ".jsx", ".json", ".css"],
+  },
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        use: "ts-loader",
+        use: [
+          {
+            loader: require.resolve("ts-loader"),
+            options: {
+              getCustomTransformers: () => ({
+                before: [isDevelopment && ReactRefreshTypeScript()].filter(
+                  Boolean
+                ),
+              }),
+              transpileOnly: isDevelopment,
+            },
+          },
+        ],
         exclude: /node_modules/,
       },
       {
@@ -21,6 +47,14 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "Sinchon Attendance Development",
+      template: "./src/index.html",
+    }),
+    isDevelopment && new ReactRefreshWebpackPlugin(),
+    new ForkTsCheckerWebpackPlugin(),
+  ].filter(Boolean),
   devServer: {
     static: {
       directory: path.join(__dirname, "dist"),
@@ -31,19 +65,7 @@ module.exports = {
     port: 9000,
     hot: true,
   },
-  output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
-    clean: true,
+  watchOptions: {
+    ignored: /node_modules/,
   },
-  resolve: {
-    modules: [path.resolve(__dirname, "src"), "node_modules"],
-    extensions: [".tsx", ".ts", ".js", ".jsx", ".json", ".css"],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: "Sinchon Attendance Development",
-      template: "./src/index.html",
-    }),
-  ],
 };
