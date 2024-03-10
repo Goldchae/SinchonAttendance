@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const ReactRefreshTypeScript = require("react-refresh-typescript");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -39,7 +41,10 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: [
+          isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
+          "css-loader",
+        ],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -54,6 +59,7 @@ module.exports = {
     }),
     isDevelopment && new ReactRefreshWebpackPlugin(),
     new ForkTsCheckerWebpackPlugin(),
+    !isDevelopment && new MiniCssExtractPlugin(),
   ].filter(Boolean),
   devServer: {
     static: {
@@ -64,6 +70,9 @@ module.exports = {
     compress: true,
     port: 9000,
     hot: true,
+  },
+  optimization: {
+    minimizer: [new CssMinimizerPlugin()],
   },
   watchOptions: {
     ignored: /node_modules/,
